@@ -4,6 +4,8 @@ This is a fork of the Official [CombineControl](https://github.com/disseminate/c
 
 ## Setup
 
+To download the gamemode, you have two choices, download the `develop`, which is possibly unstable but is the newest, or download it from the releases tab. The setup is largely the same, just keep in mind that the `develop` branch will possibly have issues.
+
 Requires [gmsv_mysqloo](https://github.com/FredyH/MySQLOO). More detailed info is available in the [manual](https://docs.google.com/document/d/127VaxlOMR720Hcu0Kue2kid6sqf6YfaxlnjHUbwvgRc/edit?usp=sharing).
 
 Set up the MySQL connection info in `gamemode/config/sv_config.lua`.
