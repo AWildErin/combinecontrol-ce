@@ -1,6 +1,6 @@
-# CombineControl
+# CombineControl Community Edition
 
-This is the official repo for the Garry's Mod roleplay gamemode CombineControl. It is no longer being developed by me but pull requests will be reviewed.
+This is a fork of the Official [CombineControl](https://github.com/disseminate/combinecontrol) repository by Disseminate. This repository plans to add new updates, fixes and more to CombineControl as the main gamemode is not being updated anymore. If you wish to contribute to any of the ideas we plan to add, feel free to fork and add a pull request and we'll review it. As it's open source anybody can contribute!
 
 ## Setup
 
