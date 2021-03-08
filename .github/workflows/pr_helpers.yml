@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Conflicts
-      uses: mschilde/auto-label-merge-conflicts@v2.0
-      with:
-        CONFLICT_LABEL_NAME: "Status: Merge Conflicts"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: mschilde/auto-label-merge-conflicts@v2.0
+        with:
+          CONFLICT_LABEL_NAME: "Status: Merge Conflicts"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Labeler
-      if: ${{ github.event_name == 'pull_request_target' }}
-      uses: actions/labeler@v3
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/labeler@v3
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
