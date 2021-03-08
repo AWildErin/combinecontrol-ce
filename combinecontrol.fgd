@@ -11,3 +11,20 @@
     landmark(string) : "Landmark 1" : "" : "Teleport Point 1"
     landmark2(string) : "Landmark 2" : "" : "Teleport Point 2"
 ]
+
+//-------------------------------------------------------------------------
+// Obsolete Entities
+//-------------------------------------------------------------------------
+
+// Brush entites
+@SolidClass base(Trigger, Targetname) = trigger_cclevel :
+    ""
+[
+    destination(string) : "Destination" : "" : "Destination to change to listed inside the entity"
+]
+
+@SolidClass base(Trigger, Targetname) = trigger_serverconnect :
+    ""
+[
+    serverid(string) : "Server ID" : "" : ""
+]
