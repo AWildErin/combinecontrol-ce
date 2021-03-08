@@ -1,28 +1,28 @@
 # This labels the pull requests depending on the files changes.
 
 # For changes to lua files in the entities folder such as effects, weapons and entities
-"Group: Entities"
+"Group: Entities":
   - entities/**/*.lua
 
 # For changes with the main GUI files, if things like the help menu are not considered main
-"Group: GUI"
+"Group: GUI":
   - gamemode/gui/*.lua
   - gamemode/cl_adminmenu.lua
   - gamemode/cl_charcreate.lua
   - gamemode/cl_playermenu.lua
 
-"Groups: Flags"
+"Groups: Flags":
   - gamemode/charflags/*.lua
   - gamemode/combineflags/*.lua
 
-"Group: Maps"
+"Group: Maps":
   - gamemode/maps/*.lua
 #  - content/maps/*.bsp
 #  - content/mapsrc/**/*.vmf
 #  - content/mapsrc/*/*.vmf
 
-"Group: Items"
+"Group: Items":
 - gamemode/items/*.lua
 
-"Group: Content"
+"Group: Content":
 - content/**/*
