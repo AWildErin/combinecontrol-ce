@@ -3,3 +3,4 @@ content/mapsrc/**/*.vmx
 content/mapsrc/**/*.log
 content/mapsrc/**/*.bsp
 content/mapsrc/**/*.prt
+content/mapsrc/**/*.lin
