@@ -1,0 +1,5 @@
+# Content stuff
+content/mapsrc/**/*.vmx
+content/mapsrc/**/*.log
+content/mapsrc/**/*.bsp
+content/mapsrc/**/*.prt

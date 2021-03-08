@@ -3,5 +3,5 @@
 	"base"			"base"
 	"title"			"CombineControl"
 	"menusystem" 	"1"
-	"maps"			"^rp_"
+	"maps"			"^rp_|^cc_"
 }
