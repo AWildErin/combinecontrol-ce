@@ -1,0 +1,24 @@
+# This runs on every push and P. This helps us to keep track of what files a PR changed with lables and check for conflicts in PRs
+
+name: Pull Request Helpers
+on:
+  push:
+    branches: [develop]
+  pull_request_target:
+    branches: [develop]
+
+jobs:
+  helpers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Conflicts
+      uses: mschilde/auto-label-merge-conflicts@v2.0
+      with:
+        CONFLICT_LABEL_NAME: "Status: Merge Conflicts"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Labeler
+      if: ${{ github.event_name == 'pull_request_target' }}
+      uses: actions/labeler@v3
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
