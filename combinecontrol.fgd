@@ -1,0 +1,13 @@
+//-------------------------------------------------------------------------
+// CombineControl FGD
+//-------------------------------------------------------------------------
+
+@include "base.fgd"
+
+// Brush Entities
+@SolidClass base(Trigger, Targetname) = trigger_ccteleport :
+    "A trigger volume that teleports player and objects between 2 landmarks"
+[
+    landmark(string) : "Landmark 1" : "" : "Teleport Point 1"
+    landmark2(string) : "Landmark 2" : "" : "Teleport Point 2"
+]
