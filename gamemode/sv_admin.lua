@@ -1541,7 +1541,7 @@ function nARemoveItem( len, ply )
 	end
 	
 	net.Start( "nRemoveItem" );
-		net.WriteUInt( k, 24 );
+		net.WriteFloat( k );
 	net.Send( targ );
 	
 	net.Start( "nAUpdateInventory" );

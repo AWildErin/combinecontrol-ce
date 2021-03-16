@@ -321,7 +321,7 @@ function meta:RemoveItem( k, s )
 		if( s != 1 ) then
 			
 			net.Start( "nRemoveItem" );
-				net.WriteUInt( k, 24 );
+				net.WriteFloat( k );
 			net.Send( self );
 			
 		end
