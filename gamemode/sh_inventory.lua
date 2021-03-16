@@ -102,7 +102,7 @@ else
 	
 	local function nRemoveItem( len, ply )
 		
-		local k = net.ReadUInt( 24 );
+		local k = net.ReadFloat();
 		local s = net.ReadBit();
 		
 		ply:RemoveItem( k, s );
@@ -385,7 +385,7 @@ function meta:ThrowOutItem( k )
 		table.remove( self.Inventory, k );
 		
 		net.Start( "nRemoveItem" );
-			net.WriteFloat( k);
+			net.WriteFloat( k );
 			net.WriteBit( true );
 		net.SendToServer();
 		
