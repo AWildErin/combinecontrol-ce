@@ -8,9 +8,9 @@ GM.Website = "";
 GM.Email = "";
 
 function GM:GetGameDescription()
-	
+
 	return self.Name;
-	
+
 end
 
 math.randomseed( os.time() );
@@ -26,7 +26,7 @@ function GM:CreateTeams()
 	team.SetUp( TEAM_STALKER, "Stalkers", Color( 86, 86, 86, 255 ), false );
 	team.SetUp( TEAM_VORTIGAUNT, "Vortigaunts", Color( 65, 204, 118, 255 ), false );
 	team.SetUp( TEAM_OVERWATCH, "Overwatch", Color( 200, 200, 200, 255 ), false );
-	
+
 end
 
 GM.ModelColors = { };
@@ -44,9 +44,9 @@ GM.ModelColors["models/player/combine_super_soldier.mdl"] = Vector( 0.4, 0, 0 );
 
 GM.ModelFuncs = { };
 GM.ModelFuncs["models/zombie/classic.mdl"] = function( ply )
-	
+
 	ply:SetBodygroup( 1, 1 );
-	
+
 end
 GM.ModelFuncs["models/zombie/fast.mdl"] = GM.ModelFuncs["models/zombie/classic.mdl"];
 GM.ModelFuncs["models/zombie/poison.mdl"] = GM.ModelFuncs["models/zombie/classic.mdl"];
@@ -137,157 +137,157 @@ GM.TranslatePlayerModelTable["models/player/group01/male_08.mdl"] = "models/huma
 GM.TranslatePlayerModelTable["models/player/group01/male_09.mdl"] = "models/humans/group01/male_09.mdl";
 
 function meta:SetModelCC( mdl )
-	
+
 	self:SetModel( mdl );
 	self:SetSkin( 0 );
 	for i = 0,  20 do
 		self:SetBodygroup( i, 0 );
 		self:SetSubMaterial( i, "" );
 	end
-	
+
 	if( GAMEMODE.ModelFuncs[mdl] ) then
-		
+
 		GAMEMODE.ModelFuncs[mdl]( self );
-		
+
 	end
-	
+
 	if( GAMEMODE.ModelColors[mdl] ) then
-		
+
 		self:SetPlayerColor( GAMEMODE.ModelColors[mdl] );
-		
+
 	end
-	
+
 	if( self:GetViewModel( 0 ) and self:GetViewModel( 0 ):IsValid() ) then
-		
+
 		self:SetupHands();
-		
+
 	end
-	
+
 	if( string.find( mdl, "group03m" ) ) then
-		
+
 		self:SetArmor( 75 );
-		
+
 	elseif( string.find( mdl, "group03" ) ) then
-		
+
 		self:SetArmor( 100 );
-		
+
 	elseif( string.find( mdl, "police" ) ) then
-		
+
 		self:SetArmor( 100 );
-		
+
 	elseif( string.find( mdl, "combine_soldier" ) or string.find( mdl, "combine_super_soldier" ) ) then
-		
+
 		self:SetArmor( 100 );
-		
+
 	else
-		
+
 		self:SetArmor( 0 );
-		
+
 	end
-	
+
 end
 
 function GM:TranslateModelToPlayer( mdl )
-	
+
 	for k, v in pairs( player_manager.AllValidModels() ) do
-		
+
 		if( string.lower( v ) == string.lower( mdl ) ) then
-			
+
 			return k;
-			
+
 		end
-		
+
 	end
-	
+
 	return "kleiner";
-	
+
 end
 
 function meta:TranslatePlayerModel()
-	
+
 	if( string.find( self:GetModel(), "group01" ) ) then return "group01" end
 	if( string.find( self:GetModel(), "group03m" ) ) then return "group03m" end
 	if( string.find( self:GetModel(), "group03" ) ) then return "group03" end
-	
+
 end
 
 function XRES( x )
-	
+
 	return x * ( ScrW() / 640 );
-	
+
 end
 
 function YRES( y )
-	
+
 	return y * ( ScrH() / 480 );
-	
+
 end
 
 function meta:Gender()
-	
-	local mdl = string.lower( self.CharModel or self:GetModel() );
-	
+
+	local mdl = string.lower( self:GetModel() );
+
 	if( string.find( mdl, "female" ) ) then return GENDER_FEMALE end
 	if( mdl == "models/player/alyx.mdl" ) then return GENDER_FEMALE end
 	if( mdl == "models/player/mossman.mdl" ) then return GENDER_FEMALE end
 	if( mdl == "models/player/mossman_arctic.mdl" ) then return GENDER_FEMALE end
 	if( mdl == "models/player/p2_chell.mdl" ) then return GENDER_FEMALE end
-	
+
 	if( mdl == "models/player/police_fem.mdl" ) then return GENDER_CP end
 	if( mdl == "models/player/police.mdl" ) then return GENDER_CP end
-	
+
 	if( mdl == "models/vortigaunt.mdl" ) then return GENDER_VORT end
 	if( mdl == "models/vortigaunt_slave.mdl" ) then return GENDER_VORT end
 	if( mdl == "models/vortigaunt_doctor.mdl" ) then return GENDER_VORT end
-	
+
 	return GENDER_MALE;
-	
+
 end
 
 function GM:FindPlayer( name, caller )
-	
+
 	name = string.lower( name );
-	
+
 	if( name == "^" ) then
-		
+
 		return caller;
-		
+
 	end
-	
+
 	if( name == "-" ) then
-		
+
 		local tr = caller:GetEyeTrace();
-		
+
 		if( tr.Entity and tr.Entity:IsValid() and tr.Entity:IsPlayer() ) then
-			
+
 			return tr.Entity;
-			
+
 		end
-		
+
 	end
-	
+
 	for k, v in pairs( player.GetAll() ) do
-		
+
 		if( tonumber( name ) == v:CID() or tonumber( name ) == v:FormattedCID() ) then
 			return v;
 		end
-		
+
 		if( string.find( string.lower( v:VisibleRPName() ), name, nil, true ) ) then
 			return v;
 		end
-		
+
 		if( string.find( string.lower( v:RPName() ), name, nil, true ) ) then
 			return v;
 		end
-		
+
 		if( string.find( string.lower( v:Nick() ), name, nil, true ) ) then
 			return v;
 		end
-		
+
 		if( string.lower( v:SteamID() ) == name ) then
 			return v;
 		end
-		
+
 	end
 
 end
@@ -295,204 +295,204 @@ end
 local allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -";
 
 function GM:CheckCharacterValidity( name, desc, model, sum, trait )
-	
+
 	if( string.len( name ) < self.MinNameLength ) then
 		return false, "Name must be longer than " .. self.MinNameLength .. " characters.";
 	end
-	
+
 	if( string.len( name ) > self.MaxNameLength ) then
 		return false, "Name must be shorter than " .. self.MaxNameLength .. " characters.";
 	end
-	
+
 	if( string.len( desc ) > self.MaxDescLength ) then
 		return false, "Description must be shorter than " .. self.MaxDescLength .. " characters.";
 	end
-	
+
 	if( !table.HasValue( self.CitizenModels, string.lower( model ) ) ) then
 		return false, "Invalid model.";
 	end
-	
+
 	if( string.find( name, "#", nil, true ) or string.find( name, "~", nil, true ) or string.find( name, "%", nil, true ) ) then
 		return false, "Invalid name.";
 	end
-	
+
 	if( sum < 0 or sum > GAMEMODE.StatsAvailable ) then
 		return false, "Too many stats allocated.";
 	end
-	
+
 	if( !self.Traits[trait] ) then
 		return false, "Invalid trait.";
 	end
-	
+
 	if( string.find( allowedChars, name, 1, true ) ) then
 		return false, "Invalid characters in name.";
 	end
-	
+
 	return true;
-	
+
 end
 
 function GM:FormatLine( str, font, size )
-	
+
 	if( string.len( str ) == 1 ) then return str, 0 end
-	
+
 	local start = 1;
 	local c = 1;
-	
+
 	surface.SetFont( font );
-	
+
 	local endstr = "";
 	local n = 0;
 	local lastspace = 0;
 	local lastspacemade = 0;
-	
+
 	while( string.len( str or "" ) > c ) do
-	
+
 		local sub = string.sub( str, start, c );
-	
+
 		if( string.sub( str, c, c ) == " " ) then
 			lastspace = c;
 		end
-		
+
 		if( surface.GetTextSize( sub ) >= size and lastspace ~= lastspacemade ) then
-			
+
 			local sub2;
-			
+
 			if( lastspace == 0 ) then
 				lastspace = c;
 				lastspacemade = c;
 			end
-			
+
 			if( lastspace > 1 ) then
 				sub2 = string.sub( str, start, lastspace - 1 );
 				c = lastspace;
 			else
 				sub2 = string.sub( str, start, c );
 			end
-			
+
 			endstr = endstr .. sub2 .. "\n";
-			
+
 			lastspace = c + 1;
 			lastspacemade = lastspace;
-			
+
 			start = c + 1;
 			n = n + 1;
-		
+
 		end
-	
+
 		c = c + 1;
-	
+
 	end
-	
+
 	if( start < string.len( str or "" ) ) then
-	
+
 		endstr = endstr .. string.sub( str or "", start );
-	
+
 	end
-	
+
 	return endstr, n;
 
 end
 
 function GM:CanSeePos( pos1, pos2, filter )
-	
+
 	local trace = { };
 	trace.start = pos1;
 	trace.endpos = pos2;
 	trace.filter = filter;
 	trace.mask = MASK_SOLID + CONTENTS_WINDOW + CONTENTS_GRATE;
 	local tr = util.TraceLine( trace );
-	
+
 	if( tr.Fraction == 1.0 ) then
-		
+
 		return true;
-		
+
 	end
-	
+
 	return false;
-	
+
 end
 
 function meta:CanSee( ent )
-	
+
 	return GAMEMODE:CanSeePos( self:EyePos(), ent:EyePos(), { self, ent } );
-	
+
 end
 
 function meta:CanHear( ent )
-	
+
 	local trace = { };
 	trace.start = self:EyePos();
 	trace.endpos = ent:EyePos();
 	trace.filter = self;
 	trace.mask = MASK_SOLID;
 	local tr = util.TraceLine( trace );
-	
+
 	if( IsValid( tr.Entity ) and tr.Entity:EntIndex() == ent:EntIndex() ) then
-		
+
 		return true;
-		
+
 	end
-	
+
 	return false;
-	
+
 end
 
 function emeta:IsDoor()
-	
+
 	if( self:GetClass() == "prop_door_rotating" ) then return true; end
 	if( self:GetClass() == "func_door_rotating" ) then return true; end
 	if( self:GetClass() == "func_door" ) then return true; end
-	
+
 	return false;
-	
+
 end
 
 function GM:ShouldCollide( e1, e2 )
-	
+
 	return true;
-	
+
 end
 
 function GM:GetHandTrace( ply, len )
-	
+
 	local trace = { };
 	trace.start = ply:EyePos();
 	trace.endpos = trace.start + ply:GetAimVector() * ( len or 50 );
 	trace.filter = ply;
-	
+
 	return util.TraceLine( trace );
-	
+
 end
 
 function util.TimeSinceDate( d )
-	
+
 	if( !d or d == "" ) then return 0 end
-	
+
 	local c = os.date( "!*t" );
-	
+
 	local sides = string.Explode( " ", d );
 	local d2 = string.Explode( "/", sides[1] );
 	local t2 = string.Explode( ":", sides[2] );
-	
+
 	local cmonth = tonumber( d2[1] );
 	local cday = tonumber( d2[2] );
 	local cyear = tonumber( d2[3] );
 	local chour = tonumber( t2[1] );
 	local cmin = tonumber( t2[2] );
 	local csec = tonumber( t2[3] );
-	
+
 	c.year = c.year - 2000;
-	
+
 	local count = ( c.year - cyear ) * 525600;
 	count = count + ( c.month - cmonth ) * 43200;
 	count = count + ( c.day - cday ) * 1440;
 	count = count + ( c.hour - chour ) * 60;
 	count = count + ( c.min - cmin );
 	count = count + math.ceil( ( c.sec - csec ) / 60 );
-	
+
 	return count;
-	
+
 end
 
 GM.Stats = {
@@ -505,13 +505,13 @@ GM.Stats = {
 };
 
 function GM:ScaledStatIncrease( ply, lvl )
-	
+
 	local rawmul = ( 15 - 1.025 ^ lvl ) / 25;
-	
+
 	rawmul = rawmul * ( 1 - math.Clamp( ply:Hunger() / 60, 0, 1 ) );
-	
+
 	return ( 15 - 1.025 ^ lvl ) / 25;
-	
+
 end
 
 GM.Music = {
@@ -580,21 +580,21 @@ GM.EP2Music = {
 };
 
 function GM:GetSongList( e )
-	
+
 	local tab = { };
-	
+
 	for _, v in pairs( self.Music ) do
-		
+
 		if( v[3] == e ) then
-			
+
 			table.insert( tab, v[1] );
-			
+
 		end
-		
+
 	end
-	
+
 	return tab;
-	
+
 end
 
 GM.OverwatchLines = {
@@ -673,22 +673,22 @@ GM.TraitsList = {
 };
 
 function meta:HasTrait( trait )
-	
+
 	if( bit.band( self:Trait(), trait ) == trait ) then return true; end
 	return false;
-	
+
 end
 
 function meta:IsEventCoordinator()
-	
+
 	return self:GetUserGroup() == "eventcoordinator";
-	
+
 end
 
 function game.GetIP()
-	
+
 	local hostip = tonumber( GetConVarString( "hostip" ) );
-	
+
 	local ip = { };
 	ip[1] = bit.rshift( bit.band( hostip, 0xFF000000 ), 24 );
 	ip[2] = bit.rshift( bit.band( hostip, 0x00FF0000 ), 16 );
@@ -696,11 +696,11 @@ function game.GetIP()
 	ip[4] = bit.band( hostip, 0x000000FF );
 
 	return table.concat( ip, "." );
-	
+
 end
 
 function game.GetPort()
-	
+
 	return tonumber( GetConVarString( "hostport" ) );
-	
+
 end
