@@ -4,7 +4,7 @@ PLUGIN = {};
 hookCache = {};
 
 function GM:LoadPlugins()
-  local files, dirs = file.Find("combinecontrol/gamemode/extras/*", "LUA");
+  local files, dirs = file.Find("combinecontrol/gamemode/extras/*.lua", "LUA");
 
   for i, v in ipairs(files) do
     if string.match(v, ".lua") then
@@ -22,7 +22,7 @@ function GM:LoadPlugins()
   end
 
   for i, v in ipairs(dirs) do
-    local dirFiles = file.Find("combinecontrol/gamemode/extras/" .. v .. "/*", "LUA");
+    local dirFiles = file.Find("combinecontrol/gamemode/extras/" .. v .. "/*.lua", "LUA");
 
     if !dirFiles then continue; end
 
@@ -45,7 +45,7 @@ function GM:LoadPlugins()
       end
     end
 
-    local items = file.Find("combinecontrol/gamemode/extras/" .. v .. "/items/*", "LUA");
+    local items = file.Find("combinecontrol/gamemode/extras/" .. v .. "/items/*.lua", "LUA");
 
     if items then
       for i2, v2 in ipairs(items) do
@@ -90,7 +90,7 @@ function GM:LoadPlugins()
         end
       end
 
-      local ents = file.Find("combinecontrol/gamemode/extras/" .. v .. "/entities/*", "LUA", "nameasc");
+      local ents = file.Find("combinecontrol/gamemode/extras/" .. v .. "/entities/*.lua", "LUA", "nameasc");
 
       if ents then
 
